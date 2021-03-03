@@ -111,6 +111,23 @@ function createIFrame(attributes, parent) {
 	return finalizeElement(iframe, attributes, parent);
 }
 
+function createImg(source, attributes, parent) {
+	const img = document.createElement('img');
+	if (source) {
+		img.src = source;
+	}
+	return finalizeElement(img, attributes, parent);
+}
+
+function createAHref(href, text, attributes, parent) {
+	const a = document.createElement('a');
+	a.href = href;
+	if (text) {
+		a.innerText = text;
+	}
+	return finalizeElement(a, attributes, parent);
+}
+
 function isClientDarkThemeEnabled() {
 	return window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
@@ -157,4 +174,18 @@ function wednesday() {
 	const videoId = getRandomElement(Object.values(mapTitleId));
 	console.log(videoId);
 	iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+}
+
+function error404() {
+	setTheme();
+
+	const container = document.getElementById("content");
+
+	const classDark = isClientDarkThemeEnabled() ? "dark-text" : "";
+
+	createText("h1", "404, my dude", {"class": classDark}, container);
+
+	createImg("images/404.png", {"alt": "404 - my dude"}, container);
+
+	createAHref("/", "Might be Wednesday...", {"class": classDark}, container);
 }

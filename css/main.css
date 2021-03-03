@@ -1,3 +1,18 @@
+@font-face { font-family: Ian; src: url('ianfont.ttf'); } 
+
+* {
+	font-family: Ian;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:focus,
+a:active {
+	text-decoration: none;
+	text-align: center;
+}
+
 .video {
 	width: 720px;
 	height: 405px;
