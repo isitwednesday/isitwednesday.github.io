@@ -1,4 +1,4 @@
-const mapTitleUrl = {
+const mapTitleId = {
 	"It Is Wednesday My Dudes Vine": "du-TY1GUFGk",
 	"guess what day it is": "9K4-jllrPrE",
 	"It is Wednesday": "bbat6cvgEJ8",
@@ -60,6 +60,39 @@ function isWednesday() {
 	return (new Date()).getDay() === 3;
 }
 
+function getRandomElement(arr) {
+	return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function addAttributesToElement(element, attributes) {
+	if (!attributes) {
+		return;
+	}
+
+	for (const attr in attributes) {
+		const value = attributes[attr];
+		if (attr === "class") {
+			value.split(" ").forEach(function(v) {
+				const vTrimmed = v.trim();
+				if (vTrimmed) {
+					element.classList.add(vTrimmed)
+				}
+			});
+			continue;
+		}
+		element.setAttribute(attr, value);
+	}
+}
+
+function createIFrame(attributes, parent) {
+	const iframe = document.createElement("iframe");
+	addAttributesToElement(iframe, attributes);
+	if (parent) {
+		parent.appendChild(iframe);
+	}
+	return iframe;
+}
+
 function onLoad() {
 	const container = document.getElementById("container");
 
@@ -70,12 +103,12 @@ function onLoad() {
 		return;
 	}
 
-	const iframe = document.createElement("iframe");
-	iframe.classList.add("video");
-	iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-	iframe.setAttribute("allowfullscreen", "");
-	container.appendChild(iframe);
-	const urls = Object.values(mapTitleUrl);
-	const url = urls[Math.floor(Math.random() * urls.length)];
-	iframe.src = "https://www.youtube.com/embed/" + url + "?autoplay=1&rel=0";
+	const iframe = createIFrame({
+		"class": "video",
+		"allow": "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+		"allowfullscreen": ""
+	}, container);
+
+	const videoId = getRandomElement(Object.values(mapTitleId));
+	iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
 }
