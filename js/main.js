@@ -54,8 +54,6 @@ const mapTitleId = {
 	"Wednesday Finale": "PAnKl7862qc"
 }
 
-onLoad();
-
 function isWednesday() {
 	return (new Date()).getDay() === 3;
 }
@@ -84,22 +82,34 @@ function addAttributesToElement(element, attributes) {
 	}
 }
 
-function createIFrame(attributes, parent) {
-	const iframe = document.createElement("iframe");
-	addAttributesToElement(iframe, attributes);
+function finalizeElement(element, attributes, parent) {
+	addAttributesToElement(element, attributes);
 	if (parent) {
-		parent.appendChild(iframe);
+		parent.appendChild(element);
 	}
-	return iframe;
+	return element;
 }
 
-function onLoad() {
-	const container = document.getElementById("container");
+function createText(tag, text, attributes, parent) {
+	const paragraph = document.createElement(tag);
+	if (text) {
+		paragraph.innerHTML = text;
+	}
+	return finalizeElement(paragraph, attributes, parent);
+}
+
+function createIFrame(attributes, parent) {
+	const iframe = document.createElement("iframe");
+	return finalizeElement(iframe, attributes, parent);
+}
+
+function wednesday() {
+	const container = document.getElementById("content");
 
 	if (!isWednesday()) {
-		const paragraph = document.createElement("p");
-		paragraph.innerHTML = "No, my dudes :("
-		container.appendChild(paragraph);
+		createText("h2", "No, my dudes :(", {
+			"class": "text-center"
+		}, container);
 		return;
 	}
 
@@ -110,5 +120,6 @@ function onLoad() {
 	}, container);
 
 	const videoId = getRandomElement(Object.values(mapTitleId));
+	console.log(videoId);
 	iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
 }
