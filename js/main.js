@@ -115,7 +115,7 @@ function isClientDarkThemeEnabled() {
 	return window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
-function setAppTheme() {
+function setTheme() {
 	if (!isClientDarkThemeEnabled()) {
 		return;
 	}
@@ -135,9 +135,7 @@ function getRandomElement(arr) {
 }
 
 function wednesday() {
-	if (isClientDarkThemeEnabled()) {
-		addClassToElement(document.body, "dark-bg");
-	}
+	setTheme();
 
 	const dayOfWeek = getDayOfWeek();
 	const container = document.getElementById("content");
