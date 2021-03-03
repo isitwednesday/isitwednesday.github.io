@@ -1,3 +1,13 @@
+const mapDayHeader = {
+	0: "No, my dudes",  // Sunday
+	1: "Not quite yet, my dudes",  // Monday
+	2: "Almost, my dudes",  // Tuesday
+	3: "It is Wednesday, my dudes!",  // Wednesday
+	4: "Far from it, my dudes :(",  // Thursday
+	5: "Alas, my dudes",  // Friday
+	6: "Negative, my dudes",  // Saturday
+}
+
 const mapTitleId = {
 	"It Is Wednesday My Dudes Vine": "du-TY1GUFGk",
 	"guess what day it is": "9K4-jllrPrE",
@@ -112,8 +122,12 @@ function setAppTheme() {
 	addClassToElement(document.body, "dark-bg");
 }
 
-function isWednesday() {
-	return (new Date()).getDay() === 3;
+function getDayOfWeek() {
+	return (new Date()).getDay();
+}
+
+function isWednesday(day) {
+	return (day ?? getDayOfWeek()) === 3;
 }
 
 function getRandomElement(arr) {
@@ -125,14 +139,14 @@ function wednesday() {
 		addClassToElement(document.body, "dark-bg");
 	}
 
-	const wednesday = isWednesday();
+	const dayOfWeek = getDayOfWeek();
 	const container = document.getElementById("content");
 
-	createText("h2", wednesday ? "It Is Wednesday My Dudes" : "No, my dudes :(", {
+	createText("h2", mapDayHeader[dayOfWeek], {
 		"class": ["text-center", isClientDarkThemeEnabled() ? "dark-text" : ""].join(" ")
 	}, container);
 
-	if (!wednesday) {
+	if (!isWednesday(dayOfWeek)) {
 		return;
 	}
 
