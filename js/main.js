@@ -162,6 +162,7 @@ function wednesday() {
 	}, container);
 
 	if (!isWednesday(dayOfWeek)) {
+		createImg("images/sad.png", {"alt": "sad my dude"}, container);
 		return;
 	}
 
