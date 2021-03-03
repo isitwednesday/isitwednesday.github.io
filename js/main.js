@@ -54,12 +54,15 @@ const mapTitleId = {
 	"Wednesday Finale": "PAnKl7862qc"
 }
 
-function isWednesday() {
-	return (new Date()).getDay() === 3;
-}
-
-function getRandomElement(arr) {
-	return arr[Math.floor(Math.random() * arr.length)];
+function addClassToElement(element, value) {
+	const valueT = value.trim();
+	if (!valueT) {
+		return;
+	}
+	if (element.classList.contains(valueT)) {
+		return;
+	}
+	element.classList.add(valueT)
 }
 
 function addAttributesToElement(element, attributes) {
@@ -70,12 +73,7 @@ function addAttributesToElement(element, attributes) {
 	for (const attr in attributes) {
 		const value = attributes[attr];
 		if (attr === "class") {
-			value.split(" ").forEach(function(v) {
-				const vTrimmed = v.trim();
-				if (vTrimmed) {
-					element.classList.add(vTrimmed)
-				}
-			});
+			value.split(" ").forEach(v => addClassToElement(element, v));
 			continue;
 		}
 		element.setAttribute(attr, value);
@@ -103,13 +101,38 @@ function createIFrame(attributes, parent) {
 	return finalizeElement(iframe, attributes, parent);
 }
 
+function isClientDarkThemeEnabled() {
+	return window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
+function setAppTheme() {
+	if (!isClientDarkThemeEnabled()) {
+		return;
+	}
+	addClassToElement(document.body, "dark-bg");
+}
+
+function isWednesday() {
+	return (new Date()).getDay() === 3;
+}
+
+function getRandomElement(arr) {
+	return arr[Math.floor(Math.random() * arr.length)];
+}
+
 function wednesday() {
+	if (isClientDarkThemeEnabled()) {
+		addClassToElement(document.body, "dark-bg");
+	}
+
+	const wednesday = isWednesday();
 	const container = document.getElementById("content");
 
-	if (!isWednesday()) {
-		createText("h2", "No, my dudes :(", {
-			"class": "text-center"
-		}, container);
+	createText("h2", wednesday ? "It Is Wednesday My Dudes" : "No, my dudes :(", {
+		"class": ["text-center", isClientDarkThemeEnabled() ? "dark-text" : ""].join(" ")
+	}, container);
+
+	if (!wednesday) {
 		return;
 	}
 

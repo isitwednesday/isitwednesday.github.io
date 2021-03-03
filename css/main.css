@@ -3,3 +3,11 @@
 	height: 405px;
 	border: none;
 }
+
+.dark-bg {
+	background-color: #202020;
+}
+
+.dark-text {
+	color: #FFFFFF;
+}
