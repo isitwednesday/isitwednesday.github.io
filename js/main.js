@@ -128,17 +128,6 @@ function createAHref(href, text, attributes, parent) {
 	return finalizeElement(a, attributes, parent);
 }
 
-function isClientDarkThemeEnabled() {
-	return window.matchMedia('(prefers-color-scheme: dark)').matches;
-}
-
-function setTheme() {
-	if (!isClientDarkThemeEnabled()) {
-		return;
-	}
-	addClassToElement(document.body, "dark-bg");
-}
-
 function getDayOfWeek() {
 	return (new Date()).getDay();
 }
@@ -152,13 +141,11 @@ function getRandomElement(arr) {
 }
 
 function wednesday() {
-	setTheme();
-
 	const dayOfWeek = getDayOfWeek();
 	const container = document.getElementById("content");
 
 	createText("h2", mapDayHeader[dayOfWeek], {
-		"class": ["text-center", isClientDarkThemeEnabled() ? "dark-text" : ""].join(" ")
+		"class": "text text-center", 
 	}, container);
 
 	if (!isWednesday(dayOfWeek)) {
@@ -178,15 +165,11 @@ function wednesday() {
 }
 
 function error404() {
-	setTheme();
-
 	const container = document.getElementById("content");
 
-	const classDark = isClientDarkThemeEnabled() ? "dark-text" : "";
+	createText("h1", "404, my dude", {"class": "text"}, container);
 
-	createText("h1", "404, my dude", {"class": classDark}, container);
+	createImg("images/404.png", {"alt": "404 my dude"}, container);
 
-	createImg("images/404.png", {"alt": "404 - my dude"}, container);
-
-	createAHref("/", "Might be Wednesday...", {"class": classDark}, container);
+	createAHref("/", "Might be Wednesday...", {"class": "text"}, container);
 }

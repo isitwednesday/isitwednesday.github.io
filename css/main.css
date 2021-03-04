@@ -1,4 +1,6 @@
-@font-face { font-family: Ian; src: url('ianfont.ttf'); } 
+@font-face {
+	font-family: Ian; src: url('ianfont.ttf');
+}
 
 * {
 	font-family: Ian;
@@ -13,16 +15,34 @@ a:active {
 	text-align: center;
 }
 
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #202020;
+	}
+	a:link,
+	a:visited,
+	a:hover,
+	a:focus,
+	a:active {
+		color: white;
+	}
+	.text {
+		color: white;
+	}
+}
+  
+@media (prefers-color-scheme: light) {
+	a:link,
+	a:visited,
+	a:hover,
+	a:focus,
+	a:active {
+		color: black;
+	}
+}
+
 .video {
 	width: 720px;
 	height: 405px;
 	border: none;
-}
-
-.dark-bg {
-	background-color: #202020;
-}
-
-.dark-text {
-	color: #FFFFFF;
 }
