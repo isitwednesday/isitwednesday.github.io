@@ -1,5 +1,5 @@
 const mapDayHeader = {
-	0: "No, my dudes",  // Sunday
+	0: "Afraid not, my dudes",  // Sunday
 	1: "Not quite yet, my dudes",  // Monday
 	2: "Almost, my dudes",  // Tuesday
 	3: "It is Wednesday, my dudes!",  // Wednesday
